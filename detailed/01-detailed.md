@@ -2,8 +2,7 @@
 
 1. Create a new React app:
 
-        $ create-react-app
-        $ my-react-router-app
+        $ create-react-app my-react-router-app
         $ cd my-react-router-app
         $ npm install
         $ npm start
