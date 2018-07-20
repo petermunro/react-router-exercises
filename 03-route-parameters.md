@@ -1,7 +1,31 @@
 # Using Route Parameters
 
-1. Create a route which uses a URL like `http://localhost:3000/contacts/1` to show a _specific_ contact.
+1. Modify your components as follows, adding a new `<Account>` component and updating `<Two>`:
 
-2. Ensure you can route to this URL, and others with similar `id`s.
+        const Account = props => (
+          <div>
+            <h3>Account {props.match.params.account}</h3>
+            <p>URL: {props.match.url}</p>
+            <p>Showing details for account {props.match.params.account}</p>
+          </div>
+        );
 
-3. What happens if no contact with that `id` exists?
+        const One = props => (
+          <div>
+            <h2>Component One</h2>
+          </div>
+        );
+
+        const Two = props => (
+          <div>
+            <h2>Component Two</h2>
+            <Route path={`${props.match.path}/accounts/:account`} component={Account} />
+          </div>
+        );
+
+2. Which URLs can now reach and display the `<Account>` component? View the `match` prop for `<Account>` with different URLs.
+
+3. Why do we have the path `${props.match.path}/accounts/:account` in component `<Two>`?
+
+4. What happens if you omit the `account` parameter?
+

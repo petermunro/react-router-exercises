@@ -1,15 +1,31 @@
 # Using Nested Routes
 
-From React Router v4, routes are nested just like you'd nest a `<div>`.
+1. Add a second component:
 
-- `<Route>`s are React components, just like any other component.
-- `<Route>`s can be interleaved within `<div>s`, `<nav>s` etc, as normal
+        const Two = props => (
+        <div>
+            <h2>Component Two</h2>
+        </div>
+        );
 
+2. Ensure this component is rendered when the URL `http://localhost:3000/two` is entered.
 
-> Documentation on nested routes is available [here](https://reacttraining.com/core/guides/philosophy/nested-routes).
+## Add Nested Routes
 
-1. Create a nested route that routes to:
+1. Add nested routes as follows:
 
-    - your `Contact` component
-    - your `Address` component
-    - any other components that you develop
+        const Two = props => (
+        <div>
+            <h2>Component Two</h2>
+            <Route path="/two/account1" component={() => <h3>Account 1</h3>} />
+            <Route path="/two/account2" component={() => <h3>Account 2</h3>} />
+        </div>
+        );
+
+2. Why are these called "nested" routes?
+
+3. Add `<Link>`s to the URLs `/two/account1` and `/two/account2` from _within_ component `<Two>`, so that the links only render when displaying component `<Two>`. Check that they work as expected.
+
+## Using `match`
+
+1. Now you understand the `match` prop, how could you use this so that the nested routes (`/two/account1` and `/two/account2`) can remain unaware of the part of the path that has been matched so far (`/two`)?

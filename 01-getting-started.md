@@ -1,29 +1,42 @@
-# Using React Router
+# Getting started with React Router
 
-1. To install react-router, follow the installation instructions [here](https://reacttraining.com/react-router/web/guides/quick-start).
+1. Create a new app with `create-react-app`.
 
-2. First, use the example they provide to get familiar with:
-   - `<Route>`
-      - What does the `path` represent?
-      - What other attributes are there?
-   - `<Link>`
-   - `<Router>`
+2. Install react-router:
 
+        $ npm install react-router-dom --save
+
+    (The installation instructions are [here](https://reacttraining.com/react-router/web/guides/quick-start).)
 
 3. Wrap a `<BrowserRouter>` around your top-level `<App>` render:
 
         ReactDOM.render(
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>, document.getElementById('root'));
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        , document.getElementById('root'));
 
-4. Now to use the `<Route>` element. It simply _conditionally renders_ its children when the location matches its path.
+## Adding a Route
+
+1. Now to use the `<Route>` element. It simply _conditionally renders_ its children when the location matches its path.
 
     Keep your app _extremely_ simple:
+
+        const Home = props => (
+            <div>
+                <h2>Home</h2>
+            </div>
+        );
 
         const One = props => (
             <div>
                 <h2>Component One</h2>
+            </div>
+        );
+
+        const Two = props => (
+            <div>
+                <h2>Component Two</h2>
             </div>
         );
 
@@ -37,45 +50,89 @@
             }
         }
 
-5. Use the React DevTools to examine the props provided to component `<One>`. In particular, examine the `location` prop.
+## Understanding `<Route>`
 
-6. What happens when enter a new URL into the location bar? Try these (assuming your server is running on port 3000):
+1. Use the React DevTools to examine the props provided to component `<One>`. It is provided three props by the parent `<Route>`. What are they?
+
+2. In React DevTools, examine the `location` prop of component `<One>`. What happens to it when you enter a new URL into the location bar? Try these (assuming your server is running on port 3000):
 
     - http://localhost:3000/foo
-    - http://localhost:3001/foo/bar?baz
-    - http://localhost:3001/foo/bar?param1=hello&param2=world
-    - http://localhost:3001/foo/bar?baz#tab1
+    - http://localhost:3000/foo/bar?baz
+    - http://localhost:3000/foo/bar?param1=hello&param2=world
+    - http://localhost:3000/foo/bar?baz#tab1
 
-7. Now modify the `path` in your `<Route>`:
+3. Now modify the `path` in your `<Route>`:
+
+        render() {
+            return (
+                <div>
+                    <Route path="/one" component={One} />
+                </div>
+            );
+        }
+
+    Again experiment by entering different URLs into the location bar. Check that the component is rendered when you expect it to be.
+
+## Add a route Home
+
+1. Add a route to the `<Home>` component and set the `path`s like this:
+
+        render() {
+            return (
+                <div>
+                    <Route path="/" component={Home} />
+                    <Route path="/one" component={One} />
+                </div>
+            );
+        }
+
+    Which components get rendered with the following URLs? Also check the `location` and `match` props of each:
+
+    - http://localhost:3000/
+    - http://localhost:3000/one
+    - http://localhost:3000/foo
+    - http://localhost:3000/one/bar
+
+## Understanding the `location` and `match` props
+
+1. Use the URL `http://localhost:3000/one`. Are the `location` props the same or different for components `<Home>` and `<One>`?
+
+2. What does `location` represent?
+
+3. Do the same again for the `match` props for each component. Again, are they the same or different?
+
+4. What does `match` represent for each component?
+
+## Add an `exact` prop
+
+1. Modify the first `<Route>`s path as follows:
 
         render() {
             return (
             <div>
-                <Route path="/foo/bar" component={One} />
+                <Route path="/" component={Home} exact />
+                <Route path="/one" component={One} />
             </div>
             );
         }
 
-    Experiment by entering different URLs into the location bar. Check that the component is rendered when you expect it to be.
+    How does this change behavior? Try these URLs to verify your understanding:
+
+    - http://localhost:3000/
+    - http://localhost:3000/one
+
 
 ## Adding a `<Link>`
 
-1. Add a `<Link>` component, for example:
+1. Add two `<Link>` components:
 
-        <Link to="/foo">One</Link>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/one">One</Link>
+          </li>
+        </ul>
 
-    Check that this takes you to the URL you expect.
-
-8. Now using `<Route>`, have your app route to various components you have developed, or make some new ones (like `<One>` above). It would be great if you could have URLs which direct the user to your:
-    - `<TweetBox>`
-    - `<ContactList>`
-    - `<EditInvoice>`
-
-
-
-
-### Troubleshooting
-
-#### `npm start` fails
-
-If you get an error, eg "sh: react-scripts: command not found", do an `npm install` again. If that doesn't work, follow [these instructions](https://stackoverflow.com/questions/39959900/npm-start-error-with-create-react-app#answer-39960890).
+    Check that these take you to the URLs you expect, and that they render the components you expect them to.
