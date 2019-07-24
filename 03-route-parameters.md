@@ -1,31 +1,26 @@
 # Using Route Parameters
 
-1. Modify your components as follows, adding a new `<Account>` component and updating `<Two>`:
+1. Modify your components as follows, adding a new `<Account>` component and updating `<Clients>`:
 
         const Account = props => (
           <div>
-            <h3>Account {props.match.params.account}</h3>
+            <h3>Clients {props.match.params.client}</h3>
             <p>URL: {props.match.url}</p>
-            <p>Showing details for account {props.match.params.account}</p>
+            <p>Showing details for account {props.match.params.client}</p>
           </div>
         );
 
-        const One = props => (
-          <div>
-            <h2>Component One</h2>
-          </div>
-        );
 
-        const Two = props => (
+        const Clients = props => (
           <div>
             <h2>Component Two</h2>
-            <Route path={`${props.match.path}/accounts/:account`} component={Account} />
+            <Route path={`${props.match.path}/clients/:client`} component={Client} />
           </div>
         );
 
-2. Which URLs can now reach and display the `<Account>` component? View the `match` prop for `<Account>` with different URLs.
+2. Which URLs can now reach and display the `<Client>` component? View the `match` prop for `<Client>` with different URLs.
 
-3. Why do we have the path `${props.match.path}/accounts/:account` in component `<Two>`?
+3. Why do we have the path `${props.match.path}/clients/:client` in component `<Clients>`?
 
-4. What happens if you omit the `account` parameter?
+4. What happens if you omit the `client` parameter?
 
