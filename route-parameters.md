@@ -17,3 +17,5 @@ However, the new requirement is to render a single `<Contact>`:
    renders the corresponding contact.
 
 3. Implement routing according to the table above.
+
+Link to the [contacts.json](https://gist.github.com/petermunro/b7103c4b05ca6375e8ac08cd5a8390b1).
