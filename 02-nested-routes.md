@@ -1,18 +1,15 @@
 # Using Nested Routes
 
-1. Add a second component:
+1. In `<Clients>`, add nested links like this, one each for the three clients below:
 
-        const Two = props => (
-        <div>
-            <h2>Component Two</h2>
-        </div>
-        );
+        <Link to={`${props.match.url}/acme`}>ACME Inc</Link>
 
-2. Ensure this component is rendered when the URL `http://localhost:3000/two` is entered.
+    - ACME Inc
+    - Baker and Sons
+    - Chortleware
 
-## Add Nested Routes
 
-1. Add nested routes as follows:
+2. Add nested routes for these clients. Here's an example for some other components:
 
         const Two = props => (
         <div>
@@ -22,10 +19,8 @@
         </div>
         );
 
-2. Why are these called "nested" routes?
-
-3. Add `<Link>`s to the URLs `/two/account1` and `/two/account2` from _within_ component `<Two>`, so that the links only render when displaying component `<Two>`. Check that they work as expected.
+3. Add `<Link>`s to the URLs `/clients/acme` and `/clients/baker-and-sons` from _within_ component `<Clients>`, so that the links only render when displaying component `<Clients>`. Check that they work as expected.
 
 ## Using `match`
 
-1. Now you understand the `match` prop, how could you use this so that the nested routes (`/two/account1` and `/two/account2`) can remain unaware of the part of the path that has been matched so far (`/two`)?
+1. Now you understand the `match` prop, how could you use this so that the nested routes (`/clients/acme` and `/clients/baker-and-sons`) can remain unaware of the part of the path that has been matched so far (`/baker-and-sons`)?

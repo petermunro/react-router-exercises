@@ -1,5 +1,7 @@
 # Getting started with React Router
 
+## Installation and `BrowserRouter`
+
 1. Create a new app with `create-react-app`.
 
 2. Install react-router:
@@ -8,19 +10,39 @@
 
     (The installation instructions are [here](https://reacttraining.com/react-router/web/guides/quick-start).)
 
-3. Wrap a `<BrowserRouter>` around your top-level `<App>` render:
+3. In your `index.js`, import BrowserRouter:
+
+        import { BrowserRouter as Router } from "react-router-dom";
+
+4. Wrap a `<BrowserRouter>` around your top-level `<App>` render:
 
         ReactDOM.render(
-            <BrowserRouter>
+            <Router>
                 <App />
-            </BrowserRouter>
+            </Router>
         , document.getElementById('root'));
 
-## Adding a Route
 
-1. Now to use the `<Route>` element. It simply _conditionally renders_ its children when the location matches its path.
+## Setting up Navigation
 
-    Keep your app _extremely_ simple:
+1. Render a navigation element (`<nav>`) which will
+   contain a list of links. Use `<Link>` from React Router to link to the following URLs:
+
+    Link Name | URL Path
+    ----------|---------
+    Home      | /
+    Clients   | /clients
+    Invoices  | /invoices
+
+
+2. In the browser, hover over or click each link in turn, and make sure the browser's URL changes.
+
+
+## Setting up Basic Routing
+
+1. We need some simple components to render for a given route.
+   Create `Home`, `Clients` and `Invoices` components. For example,
+   for `Home` you could use:
 
         const Home = props => (
             <div>
@@ -28,111 +50,11 @@
             </div>
         );
 
-        const One = props => (
-            <div>
-                <h2>Component One</h2>
-            </div>
-        );
+2. Now to use the `<Route>` element. It simply _conditionally renders_ its children when the location matches its path.
 
-        const Two = props => (
-            <div>
-                <h2>Component Two</h2>
-            </div>
-        );
+   Render three `<Route>` components, each one rendering one of
+   the three components above, and only when its corresponding path
+   matches. To do this, use the `path` and `component` props.
 
-        class App extends Component {
-            render() {
-                return (
-                    <div>
-                        <Route component={One} />
-                    </div>
-                );
-            }
-        }
-
-## Understanding `<Route>`
-
-1. Use the React DevTools to examine the props provided to component `<One>`. It is provided three props by the parent `<Route>`. What are they?
-
-2. In React DevTools, examine the `location` prop of component `<One>`. What happens to it when you enter a new URL into the location bar? Try these (assuming your server is running on port 3000):
-
-    - http://localhost:3000/foo
-    - http://localhost:3000/foo/bar?baz
-    - http://localhost:3000/foo/bar?param1=hello&param2=world
-    - http://localhost:3000/foo/bar?baz#tab1
-
-3. Now modify the `path` in your `<Route>`:
-
-        render() {
-            return (
-                <div>
-                    <Route path="/one" component={One} />
-                </div>
-            );
-        }
-
-    Again experiment by entering different URLs into the location bar. Check that the component is rendered when you expect it to be.
-
-## Add a route Home
-
-1. Add a route to the `<Home>` component and set the `path`s like this:
-
-        render() {
-            return (
-                <div>
-                    <Route path="/" component={Home} />
-                    <Route path="/one" component={One} />
-                </div>
-            );
-        }
-
-    Which components get rendered with the following URLs? Also check the `location` and `match` props of each:
-
-    - http://localhost:3000/
-    - http://localhost:3000/one
-    - http://localhost:3000/foo
-    - http://localhost:3000/one/bar
-
-## Understanding the `location` and `match` props
-
-1. Use the URL `http://localhost:3000/one`. Are the `location` props the same or different for components `<Home>` and `<One>`?
-
-2. What does `location` represent?
-
-3. Do the same again for the `match` props for each component. Again, are they the same or different?
-
-4. What does `match` represent for each component?
-
-## Add an `exact` prop
-
-1. Modify the first `<Route>`s path as follows:
-
-        render() {
-            return (
-            <div>
-                <Route path="/" component={Home} exact />
-                <Route path="/one" component={One} />
-            </div>
-            );
-        }
-
-    How does this change behavior? Try these URLs to verify your understanding:
-
-    - http://localhost:3000/
-    - http://localhost:3000/one
-
-
-## Adding a `<Link>`
-
-1. Add two `<Link>` components:
-
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/one">One</Link>
-          </li>
-        </ul>
-
-    Check that these take you to the URLs you expect, and that they render the components you expect them to.
+3. Ensure that each component is rendered when you visit its URL,
+   and that `Home` is rendered _only_ when you visit `/`.
