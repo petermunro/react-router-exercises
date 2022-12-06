@@ -1,26 +1,49 @@
 # Using Nested Routes
 
+## Adding Secondary Navigation
+
 1. In `<Clients>`, add nested links like this, one each for the three clients below:
 
-        <Link to={`${props.match.url}/acme`}>ACME Inc</Link>
+    ```javascript
+    <Link to={`/clients/acme`}>ACME Inc</Link>
+    ```
 
     - ACME Inc
     - Baker and Sons
     - Chortleware
 
+    You can of course generate these programmatically.
 
-2. Add nested routes for these clients. Here's an example for some other components:
+    > If you place your list of links inside a `<nav className="secondary">`, my `App.css` file will style them:
 
-        const Two = props => (
-        <div>
-            <h2>Component Two</h2>
-            <Route path="/two/account1" component={() => <h3>Account 1</h3>} />
-            <Route path="/two/account2" component={() => <h3>Account 2</h3>} />
-        </div>
-        );
+    ```javascript
+    <nav className="secondary">
+        <ul>
+            <li>
+                <Link to={`/clients/acme`}>ACME Inc</Link>
+            </li>
+            ...
+    ```
+    
+2. Check that the URL changes when you click on these links.
 
-3. Add `<Link>`s to the URLs `/clients/acme` and `/clients/baker-and-sons` from _within_ component `<Clients>`, so that the links only render when displaying component `<Clients>`. Check that they work as expected.
 
-## Using `match`
+## Adding Nested Routes
 
-1. Now you understand the `match` prop, how could you use this so that the nested routes (`/clients/acme` and `/clients/baker-and-sons`) can remain unaware of the part of the path that has been matched so far (`/baker-and-sons`)?
+1. In your `<App>`, add nested routes for these clients. Here's an example:
+
+    ```javascript
+    <Route path="clients" element={<Clients />}>
+    <Route path="acme" element={<Client />} />
+    </Route>
+    ```
+
+    Add a new React component, `<Client>` to simply display a heading "Client" for every client. We will add to this later.
+
+2. Check that:
+
+    - you can now click the "ACME Inc" link and navigate to the `<Client>` component;
+    - that the URL changes accordingly;
+    - that the primary navigation still takes you to Home and Invoices.
+
+

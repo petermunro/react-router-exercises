@@ -1,26 +1,48 @@
 # Using Route Parameters
 
-1. Modify your components as follows, adding a new `<Account>` component and updating `<Clients>`:
+## Updating the Routes to Specify Route Parameters
 
-        const Account = props => (
-          <div>
-            <h3>Clients {props.match.params.client}</h3>
-            <p>URL: {props.match.url}</p>
-            <p>Showing details for account {props.match.params.client}</p>
-          </div>
-        );
+1. Now, back in `<App>`, modify the `<Routes>` as follows.
+
+    Currently it looks something like this:
+
+    ```javascript
+    <Routes>
+      <Route index element={<Home />} />
+      <Route path="home" element={<Home />} />
+      <Route path="clients" element={<Clients />}>
+        <Route path="acme" element={<Client />} />
+        <Route path="baker" element={<Client />} />
+        <Route path="chortleware" element={<Client />} />
+      </Route>
+      <Route path="invoices" element={<Invoices />} />
+      <Route path="*" element={<Home />} />
+    </Routes>
+    ```
+
+    Modify it so that the `/clients` route looks like this:
+
+    ```javascript
+    <Route path="clients" element={<Clients />}>
+      <Route path=":clientName" element={<Client />} />
+    </Route>
+    ```
+
+2. Check that it still navigates to the `<Client>` component.
+
+3. Notice what we have done: `:clientName` is a parameter representing the real client URL path.
 
 
-        const Clients = props => (
-          <div>
-            <h2>Component Two</h2>
-            <Route path={`${props.match.path}/clients/:client`} component={Client} />
-          </div>
-        );
+## Accessing Route Parameters
 
-2. Which URLs can now reach and display the `<Client>` component? View the `match` prop for `<Client>` with different URLs.
+We can access this path parameter from our `<Client>` component.
 
-3. Why do we have the path `${props.match.path}/clients/:client` in component `<Clients>`?
+1. Modify `<Client>` to add the line:
 
-4. What happens if you omit the `client` parameter?
+    ```javascript
+    const { clientName } = useParams();
+    ```
+
+2. Display the `clientName` in the rendering of this component.
+
 

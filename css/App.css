@@ -1,0 +1,32 @@
+.App {
+  color: white;
+}
+
+nav ul {
+  display: flex;
+}
+
+nav li {
+  list-style-type: none;
+}
+
+nav a {
+  padding: 1em;
+}
+
+a {
+  color: gray;
+  text-decoration: none;
+}
+
+a:hover {
+  color: white;
+}
+
+.secondary ul {
+  flex-direction: column;
+}
+
+.secondary li {
+  margin: 0.5em;
+}
