@@ -20,9 +20,9 @@
 
     ```js
     ReactDOM.render(
-        <Router>
+        <BrowserRouter>
             <App />
-        </Router>
+        </BrowserRouter>
     , document.getElementById('root'));
     ```
 
