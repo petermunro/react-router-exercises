@@ -24,7 +24,7 @@
             </li>
             ...
     ```
-    
+
 2. Check that the URL changes when you click on these links.
 
 
@@ -52,13 +52,13 @@
     ```
 
 
- This serves as a placeholder: it displays matching "children" routes.
+    This serves as a placeholder: it displays matching "children" routes.
 
- Notice that in your Route definition, the Route for "acme" is a _child_ of the Route for "clients".
+    Notice that in your Route definition, the Route for "acme" is a _child_ of the Route for "clients".
 
- But how does `<Clients>` know where to display it?
+    But how does `<Clients>` know where to display it?
 
- This is what `<Outlet>` tells it. You can place one of these exactly in the HTML where you want the child component displayed.
+    This is what `<Outlet>` tells it. You can place one of these exactly in the HTML where you want the child component displayed.
 
 3. Check that:
 
